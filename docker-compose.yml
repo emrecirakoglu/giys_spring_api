@@ -1,0 +1,40 @@
+version: '3'
+services:
+  giys-db:
+    image: "postgres" # use latest official postgres version
+    hostname: giys_db
+    container_name: giys_db
+    network_mode: bridge
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: giys_user
+      POSTGRES_PASSWORD: giys_password
+      POSTGRES_DB: giys_db
+    volumes:
+      - giys-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+
+  giys-messaging:
+    image: rabbitmq:3-management
+    hostname: giys_messaging
+    container_name: giys_messaging
+    environment: 
+      RABBITMQ_DEFAULT_USER: admin 
+      RABBITMQ_DEFAULT_PASS: admin
+    volumes:
+      - giys-messaging-etc:/etc/rabbitmq
+      - giys-messaging-data:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+      - giys-messaging-log:/var/log/rabbitmq/log
+    ports:
+      - 5672:5672
+      - 15672:15672
+      
+volumes:
+  giys-data: 
+    driver: local # named volumes can be managed easier using docker-compose
+  giys-messaging-etc:
+    driver: local
+  giys-messaging-log:
+    driver: local
+  giys-messaging-data:
+    driver: local
