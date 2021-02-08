@@ -2,16 +2,14 @@ package com.ozgur.giys.api.exeption;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+
+import org.springframework.amqp.core.AmqpMessageReturnedException;
 
 import org.springframework.http.converter.HttpMessageNotReadableException;
 
@@ -51,27 +49,13 @@ public class ApiExeptionHandler {
         return new ResponseEntity<>(apiException, notFound);
     }
 
-    @ExceptionHandler({ MethodArgumentNotValidException.class })
-    public ResponseEntity<Object> notValidException(MethodArgumentNotValidException e) {
+    @ExceptionHandler({ AmqpMessageReturnedException.class })
+    public ResponseEntity<Object> noRouteException(AmqpMessageReturnedException e) {
 
-        String message = "Not valid exeption occurred!";
-
-        Map<String, String> errors = new HashMap<>();
-        e.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ( (FieldError) error ).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-
-        int effectedFieldSize = e.getBindingResult().getAllErrors().size();
-
-        HttpStatus notAcceptable = HttpStatus.NOT_ACCEPTABLE;
-
-        NotValidException notValidException = new NotValidException(message, errors, effectedFieldSize, notAcceptable,
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        ApiException apiException = new ApiException("No route to host", badRequest,
                 ZonedDateTime.now(zoneId));
-
-        return new ResponseEntity<>(notValidException, notAcceptable);
-
+        return new ResponseEntity<>(apiException, badRequest);
     }
 
 }

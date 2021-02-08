@@ -1,0 +1,47 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007fc8d175b179, pid=1521090, tid=1521100
+#
+# JRE version: OpenJDK Runtime Environment (11.0.9.1+1) (build 11.0.9.1+1-Ubuntu-0ubuntu1.20.04)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.9.1+1-Ubuntu-0ubuntu1.20.04, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libjimage.so+0x3179]
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P %E" (or dumping to /home/emre/Desktop/Giys_SpringApi/giys_api/core.1521090)
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-lts
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:46721 -Dfile.encoding=UTF-8 com.ozgur.giys.api.GiysApiApplication
+
+Host: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz, 8 cores, 7G, Ubuntu 20.04.1 LTS
+Time: Fri Jan 22 23:35:07 2021 +03 elapsed time: 30113.272539 seconds (0d 8h 21m 53s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fc8c812d800):  JavaThread "Signal Dispatcher" daemon [_thread_in_vm, id=1521100, stack(0x00007fc89aee3000,0x00007fc89afe4000)]
+
+Stack: [0x00007fc89aee3000,0x00007fc89afe4000],  sp=0x00007fc89afe1218,  free space=1016k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libjimage.so+0x3179]
+C  [libjimage.so+0x42b1]  JIMAGE_FindResource+0xf1
+V  [libjvm.so+0x5ae8d1]
+V  [libjvm.so+0x5b1081]
+V  [libjvm.so+0xde0f0d]
+V  [libjvm.so+0xddfa9a]
+V  [libjvm.so+0xde205b]
+V  [libjvm.so+0x66062e]
+V  [libjvm.so+0x84ec06]
+j  jdk.internal.misc.Signal.dispatch(I)V+25 java.base@11.0.9.1
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x8575d9]
+V  [libjvm.so+0x8565f2]
+V  [libjvm.so+0xbc09fe]
+V  [libjvm.so+0xe17ccf]
+V  [libjvm.so+0xe14330]
+V  [libjvm.so+0xbd26e6]
+
