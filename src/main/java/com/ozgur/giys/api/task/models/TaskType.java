@@ -1,8 +1,9 @@
 package com.ozgur.giys.api.task.models;
 
 public enum TaskType {
-    info,
+    INFO,
     PACKAGE,
-    service,
-    LOCALUSERS
+    SERVICE,
+    LOCAL_USERS,
+    PORT_MANAGER
 }
