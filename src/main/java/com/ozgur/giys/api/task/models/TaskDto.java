@@ -24,7 +24,7 @@ public class TaskDto implements Serializable{
     private TaskType taskType;
     
     @NonNull
-    private Map<String,String> taskParameters;
+    private Map<String,Object> taskParameters;
 
     @NonNull
     private String routingKey;

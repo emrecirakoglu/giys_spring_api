@@ -5,5 +5,6 @@ public enum TaskType {
     PACKAGE,
     SERVICE,
     LOCAL_USERS,
-    PORT_MANAGER
+    PORT_MANAGER,
+    FILE_TRANSFER
 }

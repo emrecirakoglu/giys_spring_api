@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.apache.tomcat.util.http.fileupload.impl.SizeLimitExceededException;
 import org.springframework.amqp.core.AmqpMessageReturnedException;
 
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -30,6 +31,17 @@ public class ApiExeptionHandler {
         return new ResponseEntity<>(apiException, badRequest);
     }
 
+    @ExceptionHandler(MaxUploadSizeExceededException.class) 
+    public ResponseEntity<Object> handleMaxSizeException(Exception e, WebRequest webRequest){
+
+        System.out.println("File size exception...");
+
+        HttpStatus badRequest = HttpStatus.EXPECTATION_FAILED;
+
+        ApiException apiException = new ApiException("File too large!", badRequest, ZonedDateTime.now(zoneId));
+        return new ResponseEntity<>(apiException, badRequest);
+
+    }
     
     @ExceptionHandler(value = { HttpMessageNotReadableException.class })
     public ResponseEntity<Object> handleTaskTypeException(Exception e, WebRequest webRequest) {

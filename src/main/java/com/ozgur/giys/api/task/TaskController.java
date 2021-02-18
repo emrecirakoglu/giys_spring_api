@@ -25,7 +25,7 @@ public class TaskController {
 
     @PostMapping(value = "/")
     public ResponseEntity<Object> sendTask(@RequestBody TaskDto task) {
-        System.out.println(task.toString());
+        System.out.println("TASK Received " + task.toString());
 
         TaskResponseMessage responseMessage = this.taskManager.handleTask(task);
 
